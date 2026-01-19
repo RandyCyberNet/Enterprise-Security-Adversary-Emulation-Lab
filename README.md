@@ -54,6 +54,10 @@ The lab is segmented into distinct security zones using pfSense as the central r
 
 ### Segments (As Implemented)
 
+**PfSense vm setup**
+![VM pfSense](images/screenshots/Pfsense_infrastructure.png)
+
+
 | Segment | CIDR / Subnet | Gateway | Role | Key Assets |
 |--------|----------------|---------|------|------------|
 | **WAN** | `192.168.224.0/24` | `192.168.224.138` | External interface for internet connectivity (updates + outbound C2 traffic) | pfSense WAN |
@@ -95,7 +99,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 | ❌ Block | Any | Any | Any | — | Default deny (catch-all) |
 
 📌 Evidence:  
-![CORP-SEG pfSense rules]()
+![CORP-SEG pfSense rules](images/screenshots/CORP_LAN_seg_firewall_rules.png)
 
 #### SOC-SEG Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
@@ -106,7 +110,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 | ❌ Block | Any | Any | Any | — | Default deny (catch-all) |
 
 📌 Evidence:  
-- `docs/screenshots/pfsense_rules_soc_seg.png`
+![SOC-SEG pfSense rules](images/screenshots/SOC_seg_firewall_rules.png)
 
 #### MGMT-SEG Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
@@ -119,7 +123,11 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 | ❌ Block | Any | Any | Any | — | Default deny (catch-all) |
 
 📌 Evidence:  
-- `docs/screenshots/pfsense_rules_mgmt_seg.png`
+![MGMT-SEG pfSense rules](images/screenshots/MGMT_firewall_rules.png)
+
+
+![WAN pfSense rules](images/screenshots/WAN_firewall_rules.png)
+
 
 ### Why This Matters (Employer-Friendly Summary)
 These rules demonstrate practical enterprise fundamentals: **segmentation**, **least privilege**, and **secure management boundaries**. Even if an endpoint is compromised in CORP, the attacker cannot directly pivot into the SOC network or pfSense management interface, while still allowing the minimum traffic needed for monitoring, updates, and controlled adversary emulation.
@@ -134,6 +142,14 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 - **File Integrity Monitoring (FIM)** enabled on Linux + Windows
 - Enhanced Windows auditing for scripting visibility
   - PowerShell logging (including script block events like **Event ID 4104**)
+
+**Proof of Concept**
+![Windows: Process Discovery](images/screenshots/.png)
+
+![Windows: Process Discovery](images/screenshots/.png)
+
+![Windows: Process Discovery](images/screenshots/.png)
+
 
 ### Network IDS at the Choke Point (Suricata on pfSense)
 - Suricata runs directly on pfSense to inspect north-south and inter-segment traffic
@@ -150,17 +166,26 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ### Windows: Process Discovery (T1057)
 - **Objective:** Validate detection and visibility for local reconnaissance on a Windows endpoint.
-- **MITRE ATT&CK:** **T1057** – Process Discovery
+- **Adversary Technique:** **T1057** – Process Discovery
 - **Emulation:** Caldera executed an automated profile on the Windows host to enumerate running processes and query system information.
 
+  ![Windows: Process Discovery](images/screenshots/attack_map_used_on_windows_host.png)
+
+
 #### Detection Evidence
-- **Wazuh captured PowerShell activity (Event ID 4104)** showing the discovery script contents.
-- **FIM/integrity alerts** triggered during changes consistent with persistence-related modifications.
+- **Endpoint Level:** The Wazuh agent successfully captured the execution of obfuscated and clear-text PowerShell scripts.
+- **Telemetry Verification:** As seen in the screenshots, Wazuh alerted on Event ID 4104, providing full visibility into the script content, including directory expansion and system variable queries.
+- **FIM/integrity alerts** Wazuh triggered alerts for Registry Integrity Checksum changes, identifying the attacker's attempt to modify system persistence or configurations during the enumeration phase.
 
 ✅ **Result:** Host-level telemetry provided actionable visibility into discovery activity.
 
-📌 Screenshot:  
-- `docs/screenshots/windows_t1057_wazuh_4104.png`
+**Predicted Catched Output on Wazuh Dashboard**
+
+📌 Results:  
+![Windows: Process Discovery](images/screenshots/Windows_attack_initial.png)
+![Windows: Process Discovery](images/screenshots/Windows_attack_proof_final_output.png)
+
+
 
 ---
 
