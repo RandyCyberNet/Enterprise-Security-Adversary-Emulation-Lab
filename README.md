@@ -55,7 +55,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 ### Segments (As Implemented)
 
 **PfSense vm setup**
-![VM pfSense](images/screenshots/Pfsense_infrastructure.png)
+![VM pfSense](images/screenshots/Pfsense_Infrastructure.png)
 
 
 | Segment | CIDR / Subnet | Gateway | Role | Key Assets |
@@ -148,7 +148,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ![Windows: Process Discovery](images/screenshots/CORP_seg_linux_host_IP.png)
 
-![Windows: Process Discovery](images/screenshots/CORP_seg_windows_host_IP.png)
+![Windows: Process Discovery](images/screenshots/Corp_seg_windows_host_IP.png)
 
 
 ### Network IDS at the Choke Point (Suricata on pfSense)
