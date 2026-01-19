@@ -1,0 +1,20 @@
+## Network Segmentation (Micro-Segmentation)
+
+The lab is segmented into distinct security zones using pfSense as the central router/firewall. Each subnet represents a separate trust boundary to reduce lateral movement and enforce least-privilege network access.
+
+### Segments (As Implemented)
+
+| Segment | CIDR / Subnet | Gateway | Role | Key Assets |
+|--------|----------------|---------|------|------------|
+| **WAN** | `192.168.224.0/24` | `192.168.224.138` | External interface for internet connectivity (updates + outbound C2 traffic) | pfSense WAN |
+| **CORP-SEG** | `192.168.20.0/24` | `192.168.20.1` | Corporate user tier (attack simulation targets) | Ubuntu Desktop `192.168.20.103`, Windows 10 `192.168.20.106` |
+| **SOC-SEG** | `192.168.10.0/24` | `192.168.10.1` | Security operations zone (central telemetry + monitoring tools) | Security Tools Server `192.168.10.100` (Wazuh, Docker/Portainer) |
+| **MGMT-SEG** | `192.168.30.0/24` | `192.168.30.1` | Administrative/management tier (controlled cross-segment access) | Monitoring Host `192.168.30.100` |
+
+---
+
+### Segmentation Objectives
+- **Contain compromise:** A compromised CORP endpoint should not directly reach SOC systems.
+- **Protect security tooling:** SOC-SEG remains isolated and only accepts explicitly required traffic (e.g., Wazuh agents).
+- **Centralize control:** All cross-segment and internet-bound traffic routes through **pfSense**, where firewall policy and inspection are enforced.
+- **Realistic enterprise model:** Separating CORP, SOC, and MGMT mirrors common real-world architectures.
