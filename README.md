@@ -22,7 +22,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 ---
 ---
 
-## Lab Goals
+## 🧭 Lab Goals
 This lab was designed to demonstrate practical security engineering and detection validation:
 - **Micro-segmentation** to reduce lateral movement
 - **Centralized logging + endpoint visibility** via SIEM/EDR-style telemetry
@@ -32,29 +32,28 @@ This lab was designed to demonstrate practical security engineering and detectio
 
 ---
 
-## Architecture Overview
+## 🛣️ Architecture/Data Flow Overview
 
 ### High-Level Data Flow
 - Endpoints generate host telemetry → **Wazuh** (SIEM/EDR-style manager)
 - Network traffic traverses pfSense → **Suricata** inspects traffic at the gateway
 - Adversary emulation executes from a cloud VPS → **Caldera** controls agents in the lab
 
-> **Diagram:**
->
-> `docs/diagrams/lab-architecture.png`
+**Diagram:**
+docs/diagrams/lab-architecture.png`
 
 ---
 ---
 
-## Network Segmentation (Micro-Segmentation)
+## 🌐 Network Segmentation (Micro-Segmentation)
 
 ![Network Topology](images/diagrams/NetworkTopology.png)
 
 The lab is segmented into distinct security zones using pfSense as the central router/firewall. Each subnet represents a separate trust boundary to reduce lateral movement and enforce least-privilege network access.
 
-### Segments (As Implemented)
+## Segments (As Implemented)
 
-**PfSense vm setup**
+### PfSense Virtual Machine Configurations ###
 ![VM pfSense](images/screenshots/Pfsense_Infrastructure.png)
 
 
@@ -74,7 +73,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 ---
 ---
 
-## pfSense Firewall Rules (Segmentation Enforcement)
+## 🧰 pfSense Firewall Rules (Segmentation Enforcement)
 
 pfSense serves as the lab’s central **router + firewall**, enforcing **least privilege** between security zones. Rules are intentionally simple and auditable: explicitly allow only what is required (telemetry, basic connectivity, internet access for updates/C2), block sensitive internal access paths, and rely on a final deny rule to prevent accidental exposure.
 
@@ -135,7 +134,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 ---
 ---
 
-## Security Stack
+## 🛡️ Security Stack
 
 ### Endpoint Telemetry and Detection (Wazuh)
 - Wazuh agents deployed to endpoints for continuous telemetry
@@ -143,7 +142,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 - Enhanced Windows auditing for scripting visibility
   - PowerShell logging (including script block events like **Event ID 4104**)
 
-**Proof of Concept**
+**Proof of Agent Integration**
 ![Windows: Process Discovery](images/screenshots/MGMT_seg_agents_and_ips.png)
 
 ![Windows: Process Discovery](images/screenshots/CORP_seg_linux_host_IP.png)
@@ -162,7 +161,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 ---
 ---
 
-## Purple Team Validations
+## 🎯 Purple Team Validations
 
 ### Windows: Process Discovery (T1057)
 - **Objective:** Validate detection and visibility for local reconnaissance on a Windows endpoint.
@@ -237,7 +236,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ---
 
-## Future Optimization
+## 🔭 Future Optimization
 Next planned enhancement: develop a custom **Wazuh decoder** for **Suricata JSON** ingestion.
 
 **Why:** This moves the lab from multiple consoles to a true **single pane of glass** for correlation and triage.
