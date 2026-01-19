@@ -39,7 +39,7 @@ This lab was designed to demonstrate practical security engineering and detectio
 - Network traffic traverses pfSense → **Suricata** inspects traffic at the gateway
 - Adversary emulation executes from a cloud VPS → **Caldera** controls agents in the lab
 
-> **Diagram:** (Add your screenshot here)
+> **Diagram:**
 >
 > `docs/diagrams/lab-architecture.png`
 
@@ -47,6 +47,8 @@ This lab was designed to demonstrate practical security engineering and detectio
 ---
 
 ## Network Segmentation (Micro-Segmentation)
+
+![Network Topology](images/diagrams/NetworkTopology.png)
 
 The lab is segmented into distinct security zones using pfSense as the central router/firewall. Each subnet represents a separate trust boundary to reduce lateral movement and enforce least-privilege network access.
 
@@ -93,7 +95,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 | ❌ Block | Any | Any | Any | — | Default deny (catch-all) |
 
 📌 Evidence:  
-- `docs/screenshots/pfsense_rules_corp_lan.png`
+![CORP-SEG pfSense rules]()
 
 #### SOC-SEG Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
