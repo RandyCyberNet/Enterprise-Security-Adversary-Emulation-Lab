@@ -125,11 +125,11 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 📌 Evidence:  
 ![MGMT-SEG pfSense rules](images/screenshots/MGMT_firewall_rules.png)
 
-**WAN Firewall Rules**
+## WAN Rules ##
 ![WAN pfSense rules](images/screenshots/WAN_firewall_rules.png)
 
 
-### Why This Matters (Employer-Friendly Summary)
+### Why This Matters
 These rules demonstrate practical enterprise fundamentals: **segmentation**, **least privilege**, and **secure management boundaries**. Even if an endpoint is compromised in CORP, the attacker cannot directly pivot into the SOC network or pfSense management interface, while still allowing the minimum traffic needed for monitoring, updates, and controlled adversary emulation.
 
 ---
@@ -221,9 +221,11 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 ✅ **Result:** Network + endpoint telemetry correlated to confirm the attack chain.
 
 📌 Screenshots:  
-![Linux: Multi-Technique](images/screenshots/Linux_.png)
-- `docs/screenshots/linux_wazuh_fim_archive_created.png`  
+![Linux: Multi-Technique](images/screenshots/Linux_file_created_proof_on_host.png)
+![Linux: Multi-Technique](images/screenshots/linux_file_created_log_generated_on_wazuh_dashboard.png)
+![Linux: Multi-Technique](images/screenshots/Linux_exfiltration_proof_from_suricata_logs.png)
 
+ 
 ---
 ---
 
