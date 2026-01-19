@@ -125,7 +125,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 📌 Evidence:  
 ![MGMT-SEG pfSense rules](images/screenshots/MGMT_firewall_rules.png)
 
-
+**WAN Firewall Rules**
 ![WAN pfSense rules](images/screenshots/WAN_firewall_rules.png)
 
 
@@ -144,11 +144,11 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
   - PowerShell logging (including script block events like **Event ID 4104**)
 
 **Proof of Concept**
-![Windows: Process Discovery](images/screenshots/.png)
+![Windows: Process Discovery](images/screenshots/MGMT_seg_agents_and_ips.png)
 
-![Windows: Process Discovery](images/screenshots/.png)
+![Windows: Process Discovery](images/screenshots/CORP_seg_linux_host_IP.png)
 
-![Windows: Process Discovery](images/screenshots/.png)
+![Windows: Process Discovery](images/screenshots/CORP_seg_windows_host_IP.png)
 
 
 ### Network IDS at the Choke Point (Suricata on pfSense)
@@ -186,7 +186,6 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 ![Windows: Process Discovery](images/screenshots/Windows_attack_proof_final_output.png)
 
 
-
 ---
 
 ### Linux: Data Staging + Exfiltration (Multi-Technique)
@@ -197,13 +196,19 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 - **T1005** – Data from Local System  
 - **T1074.001** – Local Data Staging  
 - **T1560.001** – Archive via Utility  
-- **T1041** – Exfiltration Over C2 Channel  
+- **T1041** – Exfiltration Over C2 Channel
+
+![Linux: Multi-Technique](images/screenshots/attack_map_used_on_linux_host.png)
+
 
 **Emulation Workflow**
 1. Collected local data  
 2. Staged it in a hidden directory  
 3. Archived it as `staged.tar.gz`  
 4. Exfiltrated over the C2 channel to the Caldera VPS  
+
+![Linux: Multi-Technique](images/screenshots/Actually_attack_enumerations_on_linux.png)
+
 
 #### Detection Evidence
 - **Suricata** flagged suspicious C2 communication  
@@ -216,7 +221,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 ✅ **Result:** Network + endpoint telemetry correlated to confirm the attack chain.
 
 📌 Screenshots:  
-- `docs/screenshots/linux_suricata_exfil_alert.png`  
+![Linux: Multi-Technique](images/screenshots/Linux_.png)
 - `docs/screenshots/linux_wazuh_fim_archive_created.png`  
 
 ---
