@@ -20,6 +20,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 - [Future Optimization](#future-optimization)
 
 ---
+---
 
 ## Lab Goals
 This lab was designed to demonstrate practical security engineering and detection validation:
@@ -43,6 +44,7 @@ This lab was designed to demonstrate practical security engineering and detectio
 > `docs/diagrams/lab-architecture.png`
 
 ---
+---
 
 ## Network Segmentation (Micro-Segmentation)
 
@@ -63,6 +65,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 - **Centralize control:** All cross-segment and internet-bound traffic routes through **pfSense**, where firewall policy and inspection are enforced.
 - **Realistic enterprise model:** Separating CORP, SOC, and MGMT mirrors common real-world architectures.
 
+---
 ---
 
 ## pfSense Firewall Rules (Segmentation Enforcement)
@@ -120,6 +123,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 These rules demonstrate practical enterprise fundamentals: **segmentation**, **least privilege**, and **secure management boundaries**. Even if an endpoint is compromised in CORP, the attacker cannot directly pivot into the SOC network or pfSense management interface, while still allowing the minimum traffic needed for monitoring, updates, and controlled adversary emulation.
 
 ---
+---
 
 ## Security Stack
 
@@ -137,6 +141,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 - **Cloud-hosted Caldera** on a Linode VPS (hybrid-cloud C2)
 - Caldera agents installed on CORP endpoints and configured to beacon over HTTP/HTTPS
 
+---
 ---
 
 ## Purple Team Validations
@@ -188,6 +193,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 - `docs/screenshots/linux_wazuh_fim_archive_created.png`  
 
 ---
+---
 
 ## Key Outcomes
 - **Segmentation enforced (Defense-in-Depth):** pfSense micro-segmentation created clear trust boundaries between CORP, SOC, and MGMT to reduce lateral movement risk.
@@ -201,4 +207,3 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 Next planned enhancement: develop a custom **Wazuh decoder** for **Suricata JSON** ingestion.
 
 **Why:** This moves the lab from multiple consoles to a true **single pane of glass** for correlation and triage.
-```
