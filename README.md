@@ -46,23 +46,27 @@ docs/diagrams/lab-architecture.png`
 ---
 
 ## 🌐 Network Segmentation (Micro-Segmentation)
+<div align="center">
+  <h2><b>Network Topology</b></h2>
+</div>
 
 ![Network Topology](images/diagrams/NetworkTopology.png)
 
 The lab is segmented into distinct security zones using pfSense as the central router/firewall. Each subnet represents a separate trust boundary to reduce lateral movement and enforce least-privilege network access.
 
-## Segments (As Implemented)
+## Segments and IP Address Configuration (As Implemented) ##
 
-### PfSense Virtual Machine Configurations ###
+### PfSense VM Network Interface Configuration ###
 ![VM pfSense](images/screenshots/Pfsense_Infrastructure.png)
 
-
+### Segment Breakdown and IP Addressing ###
 | Segment | CIDR / Subnet | Gateway | Role | Key Assets |
 |--------|----------------|---------|------|------------|
-| **WAN** | `192.168.224.0/24` | `192.168.224.138` | External interface for internet connectivity (updates + outbound C2 traffic) | pfSense WAN |
-| **CORP-SEG** | `192.168.20.0/24` | `192.168.20.1` | Corporate user tier (attack simulation targets) | Ubuntu Desktop `192.168.20.103`, Windows 10 `192.168.20.106` |
-| **SOC-SEG** | `192.168.10.0/24` | `192.168.10.1` | Security operations zone (central telemetry + monitoring tools) | Security Tools Server `192.168.10.100` (Wazuh, Docker/Portainer) |
-| **MGMT-SEG** | `192.168.30.0/24` | `192.168.30.1` | Administrative/management tier (controlled cross-segment access) | Monitoring Host `192.168.30.100` |
+| **WAN** | `192.168.224.0/24` | `192.168.224.138` | External interface that provides internet connectivity to internal hosts and allows for outbound/inbound C2 traffic | pfSense WAN (Firewall/Router) |
+| **CORP-SEG** | `192.168.20.0/24` | `192.168.20.1` | Corporate workstations; simulates normal browsing and day-to-day work activities (attack targets) | Ubuntu Desktop `192.168.20.103`, Windows 10 `192.168.20.108` |
+| **SOC-SEG** | `192.168.10.0/24` | `192.168.10.1` | Security operations zone that hosts Docker/Portainer and Wazuh; a central location for telemetry ingestion and monitoring tools | Security Server `192.168.10.100` (Wazuh, Docker/Portainer) |
+| **MGMT-SEG** | `192.168.30.0/24` | `192.168.30.1` | Administrative/management zone that controls cross-segment access; supports monitoring via the Wazuh dashboard, SSH capabilities, web-interface interactions, and handles Caldera operations/configurations | Management Host `192.168.30.100` |
+
 
 ### Segmentation Objectives
 - **Contain compromise:** A compromised CORP endpoint should not directly reach SOC systems.
@@ -85,9 +89,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 - Permit controlled **internet access** for updates + adversary emulation workflows
 - Enforce a **default-deny** baseline
 
-### Rule Set (As Implemented)
-
-#### CORP-SEG (LAN) Rules
+### CORP-SEG (LAN) Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
 |-------|-------|--------|-------------|----------|---------|
 | ✅ Pass | TCP | LAN subnets | `192.168.10.100` (Wazuh) | `1514–1515` | Allow Wazuh agent communication + enrollment |
@@ -100,7 +102,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 📌 Evidence:  
 ![CORP-SEG pfSense rules](images/screenshots/CORP_LAN_seg_firewall_rules.png)
 
-#### SOC-SEG Rules
+### SOC-SEG Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
 |-------|-------|--------|-------------|----------|---------|
 | ✅ Pass | ICMP | `SOC_SEG subnets` | SOC_SEG address (pfSense) | — | Allow SOC hosts to ping router/firewall |
@@ -111,7 +113,7 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 📌 Evidence:  
 ![SOC-SEG pfSense rules](images/screenshots/SOC_seg_firewall_rules.png)
 
-#### MGMT-SEG Rules
+### MGMT-SEG Rules
 | Action | Proto | Source | Destination | Dest Port | Purpose |
 |-------|-------|--------|-------------|----------|---------|
 | ✅ Pass | Any | `192.168.30.100` | LAN subnets (CORP) | — | MGMT host can administer/monitor CORP endpoints |
@@ -124,11 +126,11 @@ pfSense serves as the lab’s central **router + firewall**, enforcing **least p
 📌 Evidence:  
 ![MGMT-SEG pfSense rules](images/screenshots/MGMT_firewall_rules.png)
 
-## WAN Rules ##
+### WAN Rules
 ![WAN pfSense rules](images/screenshots/WAN_firewall_rules.png)
 
 
-### Why This Matters
+#### Why This Matters 
 These rules demonstrate practical enterprise fundamentals: **segmentation**, **least privilege**, and **secure management boundaries**. Even if an endpoint is compromised in CORP, the attacker cannot directly pivot into the SOC network or pfSense management interface, while still allowing the minimum traffic needed for monitoring, updates, and controlled adversary emulation.
 
 ---
@@ -206,7 +208,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 3. Archived it as `staged.tar.gz`  
 4. Exfiltrated over the C2 channel to the Caldera VPS  
 
-![Linux: Multi-Technique](images/screenshots/Actually_attack_enumerations_on_linux.png)
+![Linux: Multi-Technique](images/screenshots/Actually_attack_enumerations_on_linux_host.png)
 
 
 #### Detection Evidence
