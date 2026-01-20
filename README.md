@@ -8,7 +8,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 ---
 
 ## Table of Contents
-- [Lab Goals](#lab-goals)
+- [🧭 Lab Goals](#lab-goals)
 - [Architecture Overview](#architecture-overview)
 - [Network Segmentation](#network-segmentation-micro-segmentation)
 - [pfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
