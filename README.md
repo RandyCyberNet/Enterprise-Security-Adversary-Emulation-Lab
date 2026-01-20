@@ -11,14 +11,14 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 - [🧭 Lab Goals](#lab-goals)
 - [🛣️ Architecture Overview](#architecture-overview)
 - [🌐 Network Segmentation](#network-segmentation)
-- [pfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
-- [Security Stack](#security-stack)
-- [Purple Team Validations](#purple-team-validations)
+- [🧰 pfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
+- [🛡️ Security Stack](#security-stack)
+- [🎯 Purple Team Validations](#purple-team-validations)
   - [Windows: Process Discovery (T1057)](#windows-process-discovery-t1057)
   - [Linux: Data Staging + Exfiltration (Multi-Technique)](#linux-data-staging--exfiltration-multi-technique)
-- [Key Outcomes](#key-outcomes)
-- [Future Optimization](#future-optimization)
-- [Lessons Learned (Conclusion)](#lessons-learned)
+- [🗝️ Key Outcomes](#key-outcomes)
+- [🔭 Future Optimization](#future-optimization)
+- [📚 Lessons Learned (Conclusion)](#lessons-learned)
 
 ---
 ---
@@ -84,7 +84,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 ---
 ---
 <a id="pfsense-firewall-rules-segmentation-enforcementn"></a>
-## 🧰 pfSense Firewall Rules (Segmentation Enforcement)
+## 🧰 PfSense Firewall Rules (Segmentation Enforcement)
 
 pfSense serves as the lab’s central **router + firewall**, enforcing **least privilege** between security zones. Rules are intentionally simple and auditable: explicitly allow only what is required (telemetry, basic connectivity, internet access for updates/C2), block sensitive internal access paths, and rely on a final deny rule to prevent accidental exposure.
 
@@ -142,7 +142,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ---
 ---
-
+<a id="secuirty-task"></a>
 ## 🛡️ Security Stack
 
 ### Endpoint Telemetry and Detection (Wazuh)
@@ -169,7 +169,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ---
 ---
-
+<a id="purple-team-validations"><a/>
 ## 🎯 Purple Team Validations
 
 ### Windows: Process Discovery (T1057)
@@ -238,15 +238,15 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
  
 ---
 ---
-
-## Key Outcomes
+<a id="key-outcomes"></a>
+## 🗝️ Key Outcomes
 - **Segmentation enforced (Defense-in-Depth):** pfSense micro-segmentation created clear trust boundaries between CORP, SOC, and MGMT to reduce lateral movement risk.
 - **Actionable endpoint visibility:** Wazuh provided host-level telemetry (Windows auditing + FIM) to detect discovery and file/registry changes tied to attacker behavior.
 - **Network-level detection at the choke point:** Suricata on pfSense detected suspicious outbound C2-style traffic using Emerging Threats signatures.
 - **Validated purple team workflow:** Adversary emulation (Caldera) produced repeatable attack chains mapped to **MITRE ATT&CK**, with detections confirmed through log evidence and screenshots.
 
 ---
-
+<a id="future-optimization"></a>
 ## 🔭 Future Optimization and Enhancements
 
 At its current state, the lab is functioning as designed: Wazuh agents are successfully generating endpoint telemetry, pfSense firewall rules are enforcing segmentation and least-privilege access, and both inbound and outbound traffic paths are behaving as expected. Adversary emulation traffic, management access, and general internet egress are all clearly observable and controllable through the firewall.
@@ -263,7 +263,7 @@ Together, these improvements will evolve the lab from a segmented detection-focu
 
 ---
 ---
-
+<a id="lessons-learned"></a>
 ## 📚 Lessons Learned (Conslustion) 📚
 
 > ✅ **Project takeaway:** This lab reinforced that strong security engineering is less about “installing tools” and more about **designing a realistic environment, enforcing least privilege, and validating detections with evidence**. The final result is a segmented enterprise-style network with centralized telemetry and repeatable adversary emulation—built within real hardware constraints.
