@@ -9,8 +9,8 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 
 ## Table of Contents
 - [🧭 Lab Goals](#lab-goals)
-- [Architecture Overview](#architecture-overview)
-- [🌐 Network Segmentation](#network-segmentation-micro-segmentation)
+- [🛣️ Architecture Overview](#architecture-overview)
+- [🌐 Network Segmentation](#network-segmentation)
 - [pfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
 - [Security Stack](#security-stack)
 - [Purple Team Validations](#purple-team-validations)
@@ -22,7 +22,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 
 ---
 ---
-
+<a id="lab-goals"></a>
 ## 🧭 Lab Goals
 This lab was designed to demonstrate practical security engineering and detection validation:
 - **Micro-segmentation** to reduce lateral movement
@@ -32,7 +32,7 @@ This lab was designed to demonstrate practical security engineering and detectio
 - Evidence-driven reporting aligned to **MITRE ATT&CK**
 
 ---
-
+<a id="architecture-overview"></a>
 ## 🛣️ Architecture/Data Flow Overview
 
 ### High-Level Data Flow
@@ -51,7 +51,7 @@ This lab was designed to demonstrate practical security engineering and detectio
 
 ---
 ---
-
+<a id="network-segmentation"></a>
 ## 🌐 Network Segmentation (Micro-Segmentation)
 <div align="center">
   <h2><b>Network Topology</b></h2>
@@ -83,7 +83,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 
 ---
 ---
-
+<a id="pfsense-firewall-rules-segmentation-enforcementn"></a>
 ## 🧰 pfSense Firewall Rules (Segmentation Enforcement)
 
 pfSense serves as the lab’s central **router + firewall**, enforcing **least privilege** between security zones. Rules are intentionally simple and auditable: explicitly allow only what is required (telemetry, basic connectivity, internet access for updates/C2), block sensitive internal access paths, and rely on a final deny rule to prevent accidental exposure.
