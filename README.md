@@ -18,6 +18,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
   - [Linux: Data Staging + Exfiltration (Multi-Technique)](#linux-data-staging--exfiltration-multi-technique)
 - [Key Outcomes](#key-outcomes)
 - [Future Optimization](#future-optimization)
+- [Lessons Learned (Conclusion)](#lessons-learned)
 
 ---
 ---
@@ -263,7 +264,7 @@ Together, these improvements will evolve the lab from a segmented detection-focu
 ---
 ---
 
-## 📚 Lessons Learned (conslustion) 📚
+## 📚 Lessons Learned (Conslustion) 📚
 
 > ✅ **Project takeaway:** This lab reinforced that strong security engineering is less about “installing tools” and more about **designing a realistic environment, enforcing least privilege, and validating detections with evidence**. The final result is a segmented enterprise-style network with centralized telemetry and repeatable adversary emulation—built within real hardware constraints.
 
