@@ -11,7 +11,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 - [🧭 Lab Goals](#lab-goals)
 - [🛣️ Architecture Overview](#architecture-overview)
 - [🌐 Network Segmentation](#network-segmentation)
-- [🧰 pfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
+- [🧰 PfSense Firewall Rules](#pfsense-firewall-rules-segmentation-enforcement)
 - [🛡️ Security Stack](#security-stack)
 - [🎯 Purple Team Validations](#purple-team-validations)
   - [Windows: Process Discovery (T1057)](#windows-process-discovery-t1057)
@@ -83,7 +83,7 @@ The lab is segmented into distinct security zones using pfSense as the central r
 
 ---
 ---
-<a id="pfsense-firewall-rules-segmentation-enforcementn"></a>
+<a id="pfsense-firewall-rules-segmentation-enforcement"></a>
 ## 🧰 PfSense Firewall Rules (Segmentation Enforcement)
 
 pfSense serves as the lab’s central **router + firewall**, enforcing **least privilege** between security zones. Rules are intentionally simple and auditable: explicitly allow only what is required (telemetry, basic connectivity, internet access for updates/C2), block sensitive internal access paths, and rely on a final deny rule to prevent accidental exposure.
@@ -142,7 +142,7 @@ These rules demonstrate practical enterprise fundamentals: **segmentation**, **l
 
 ---
 ---
-<a id="secuirty-task"></a>
+<a id="security-stack"></a>
 ## 🛡️ Security Stack
 
 ### Endpoint Telemetry and Detection (Wazuh)
