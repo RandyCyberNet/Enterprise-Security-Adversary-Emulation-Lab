@@ -19,6 +19,7 @@ A custom-built Purple Team home lab that simulates a segmented enterprise networ
 - [🗝️ Key Outcomes](#key-outcomes)
 - [🔭 Future Optimization](#future-optimization)
 - [📚 Lessons Learned (Conclusion)](#lessons-learned)
+  - [Sources and References](#sources)
 
 ---
 ---
@@ -291,4 +292,46 @@ Building firewall policy was another key learning area. I had not previously cre
 Finally, deploying adversary emulation with **Caldera** was relatively straightforward compared to log forwarding, but it still introduced real-world troubleshooting. Installing agents on Linux hosts was smooth, while Windows required additional handling due to Windows Defender interference (which needed to be disabled in this lab context for the agent to function properly). I also had to adjust endpoint configurations to strengthen visibility, including enabling **File Integrity Monitoring** and ensuring **PowerShell script block logging** was captured by the wazuh agent and forwarded to the Wazuh server(soc server).
 
 Overall, this project was a major learning experience in building secure architecture under constraints. It taught me how to design and enforce segmentation, build telemetry pipelines, implement least privilege controls, and validate detection capability using repeatable adversary emulation. While additional tuning is still needed—especially around Suricata-to-Wazuh parsing and correlation—the lab represents a strong baseline that can be expanded and scaled into an even more realistic enterprise security simulation over time.
+
+---
+---
+
+<a id="sources"></a>
+## Sources and References
+
+The lab implementation and configurations were guided by a mix of official documentation, community write-ups, and targeted tutorials.
+
+### Wazuh (Docker, Configuration, Agentless Monitoring)
+- Wazuh Docker deployment:
+  https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html
+- Wazuh agentless monitoring:
+  https://documentation.wazuh.com/current/user-manual/capabilities/agentless-monitoring/index.html
+- Wazuh manager configuration reference (ossec.conf):
+  https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/index.html
+
+### pfSense (Installation + Firewall Best Practices)
+- pfSense install walkthrough:
+  https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html
+- pfSense firewall best practices:
+  https://docs.netgate.com/pfsense/en/latest/firewall/best-practices.html
+
+### Caldera (Adversary Emulation / C2)
+- Caldera installation documentation:
+  https://caldera.readthedocs.io/en/latest/Installing-Caldera.html
+
+### Syslog-ng (Log Forwarding / Formatting)
+- Syslog-ng Open Source Edition administration guide:
+  https://support.oneidentity.com/technical-documents/syslog-ng-open-source-edition/3.16/administration-guide/14
+
+### Community Reference (pfSense Syslog to Wazuh)
+- Sending pfSense syslogs to Wazuh SIEM (community guide):
+  https://marceltc.com/sending-pfsense-syslogs-to-wazuh-siem/
+
+### Endpoint Visibility Hardening (FIM + PowerShell Logging)
+- Enabling File Integrity Monitoring (video):
+  https://www.youtube.com/watch?v=aO2jUOFa9Hs
+- PowerShell Script Block Logging (tutorial):
+  https://www.techtarget.com/searchwindowsserver/tutorial/Set-up-PowerShell-script-block-logging-for-added-security
+
+
 
